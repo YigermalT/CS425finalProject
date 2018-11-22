@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html layout:decorator="shared/homelayout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="/" th:href="@{/css/homepage/index.css}" />
+    <title>Aha - New Car Rental System - New Car Owner</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <form id="stuRegForm" method="post" action="/carowner/sign" th:object="${account}">
+            <fieldset>
+                <legend>Car Owner Sign In Form</legend>
+                <!-- input type="hidden" name="ownerId" th:value="${account.accountId}" /-->
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+									class="alert alert-danger"></span>
+                    <input id="userName" name="userName" type="text" class="form-control" th:value="${account.userName}">
+                </div>
+                <div class="form-group">
+                        <label for="password">Password</label>
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                            class="alert alert-danger"></span>
+                        <input id="password" name="password" type="password" class="form-control" th:value="${account.password}">
+                </div>
+                <div style="float:right;">
+                    <a href="/" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;            
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Sign In</button>
+                </div>
+                
+            </fieldset>
+        </form>
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+    
+</body>
+</html>

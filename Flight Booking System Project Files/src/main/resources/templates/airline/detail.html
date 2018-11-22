@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html layout:decorator="shared/homelayout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-index.css}" />
+    <title>Airline detail</title>
+</th:block>
+<body>
+    <th:block layout:fragment="content">
+        <form id="frmAirline" method="post" th:action="@{/airline/{id}(id=${airline.id})}" th:object="${airline}">
+            <fieldset>
+                <legend>Airline information</legend>
+                <div class="form-group">
+                    <label >ID</label>
+                    <input type="text" disabled="true" th:field="*{id}" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label >Name</label>
+                    <span th:if="${#fields.hasErrors('airlineName')}" th:errors="*{airlineName}"
+									class="alert alert-danger"></span>
+                    <input id="airlineName" th:field="*{airlineName}" type="text" class="form-control" >
+                </div>
+
+                <div style="float:right;">
+                    <a href="/airline" class="btn btn-outline-warning">Cancel</a>
+                    <button id="btnDelete" type="submit" name="delete" class="btn btn-outline-danger">Delete</button>
+                    <button id="btnSubmit" type="submit" name="update" class="btn btn-outline-success">Update</button>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+    
+</body>
+</html>

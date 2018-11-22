@@ -1,0 +1,57 @@
+<!DOCTYPE html >
+<html layout:decorator="shared/homelayout"
+	xmlns:th="http://www.thymeleaf.org">
+<body>
+	<th:block layout:fragment="header">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/home-index.css}" />
+	</th:block>
+	
+	<th:block layout:fragment="content">
+		<!--<h2>Welcome to home page!</h2>-->
+		<h2>List of Flight Schedules</h2>
+		<a href="/flight/new">Add a New Flight Schedule</a>
+		<!--<a href="/" id="linkBackHome" >Back to home</a><br/><br/>-->
+		<table class="table table-striped">
+			<thead style="background-color: darkblue; color:white";>
+				<th>Flight</th>
+				<th>Departure Airport</th>
+				<th>Departure Date</th>
+				<th>Departure Time</th>
+				<th>Destination Airport</th>
+				<th>Arrival Date</th>
+				<th>Arrival Time</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+			<!--<tr >
+				<td>NW 36</td>
+				<td>Detroid       8/6/09  7:10 PM</td>
+				<td>Amsterdam     8/7/09  9:00 AM</td>
+			</tr>
+			<tr >
+				<td>NW 96</td>
+				<td>Tokyo         8/6/09  3':05 PM</td>
+				<td>Detroid       8/7/09  1':45 PM </td>
+			</tr>-->
+			<tr th:each="flight : ${flights}">
+				<td th:text="${flight.flightnr}"></td>
+				<td th:text="${flight.origin.airportCode}+'-'+${flight.origin.city}+'-'+${flight.origin.country}"></td>
+				<td th:text="${flight.departureDate}"></td>
+				<td th:text="${flight.departureTime}"></td>
+				<td th:text="${flight.destination.airportCode}+'-'+${flight.destination.city}+'-'+${flight.destination.country}"></td>
+				<td th:text="${flight.arrivalDate}"></td>
+				<td th:text="${flight.arrivalTime}"></td>
+				<td>
+					<a th:href="@{'/flight/' + ${flight.id}}">Edit</a>&nbsp;
+					<!--<a th:href="@{'/student/delete/' + ${student.studentId}}">Delete</a>-->
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</th:block>
+	
+	<th:block layout:fragment="footer">
+	</th:block>
+	
+</body>
+</html>

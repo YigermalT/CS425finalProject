@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{common/masterlayout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage/index.css}" />
+    <title>Student Registration System - New Student</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <form id="stuRegForm" method="post" action="/srs/students/new" th:object="${student}">
+            <fieldset>
+                <legend>New Student Form</legend>
+                <input type="hidden" name="studentId" th:value="${student.studentId}" />
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+									class="alert alert-danger"></span>
+                    <input id="firstName" name="firstName" type="text" class="form-control" th:value="${student.firstName}">
+                </div>
+                <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input id="middleName" name="middleName" type="text" class="form-control" th:value="${student.middleName}">
+                </div>                
+                <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                            class="alert alert-danger"></span>
+                        <input id="lastName" name="lastName" type="text" class="form-control" th:value="${student.lastName}">
+                </div>                
+                <div class="form-group">
+                        <label for="emailAddress">Email</label>
+                        <span th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"
+                            class="alert alert-danger"></span>
+                        <input id="emailAddress" name="emailAddress" type="email" class="form-control" aria-describedby="emailAddressHelp" placeholder="e.g. name@domain.com" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*" title="Email must be in the format, name@domain.tld" th:value="${student.emailAddress}">
+                        <small id="emailAddressHelp" class="form-text text-muted">Enter a valid email address; in the format as specified.</small>
+                </div>    
+                <div style="float:right;">
+                    <a href="/srs/students/browse" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;            
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Register Student</button>
+                </div>
+            </fieldset>
+        </form>
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+    
+</body>
+</html>

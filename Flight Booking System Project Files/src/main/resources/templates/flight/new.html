@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html layout:decorator="shared/homelayout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-index.css}" />
+    <title>Flight Information Management - Schedule New Flight</title>
+</head>
+<body>
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homelayout.css}" />
+</th:block>
+<th:block layout:fragment="content">
+    <!--<form id="stuRegForm" method="post" action="/flight/{id}" th:object="${flight}">-->
+    <!--<form method="post" action="/flight" th:object="${flight}">-->
+    <form action="/flight/new" method="post" th:object="${flight}" >
+        <fieldset>
+            <legend>Edit Flight Form</legend>
+            <input type="hidden" name="Id" th:field="*{id}" />
+
+            <div class="form-group" >
+                <!--<div class="form-group" style="display:flex; flex-direction: row" >-->
+                <label for="flightnr">Flight Number</label>
+                <span th:if="${#fields.hasErrors('flightnr')}" th:errors="*{flightnr}"
+                      class="alert alert-danger"></span>
+                <input id="flightnr" th:field="*{flightnr}" type="text" class="form-control" >
+            </div>
+            <div class="form-group" style="float:none;">
+                <label for="departureDate">Departure Date</label>
+                <span th:if="${#fields.hasErrors('departureDate')}" th:errors="*{departureDate}"
+                      class="alert alert-danger"></span>
+                <input id="departureDate" th:field="*{departureDate}" type="date" placeholder="yyyy/mm/dd" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label for="departureTime">Departure Time</label>
+                <span th:if="${#fields.hasErrors('departureTime')}" th:errors="*{departureTime}"
+                      class="alert alert-danger"></span>
+                <input id="departureTime" th:field="*{departureTime}" type="time" placeholder="hh:mm" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label for="arrivalDate">Arrival Date</label>
+                <span th:if="${#fields.hasErrors('arrivalDate')}" th:errors="*{arrivalDate}"
+                      class="alert alert-danger"></span>
+                <input id="arrivalDate" th:field="*{arrivalDate}" type="date" placeholder="yyyy/mm/dd" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label for="arrivalTime">Arrival Time</label>
+                <span th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"
+                      class="alert alert-danger"></span>
+                <input id="arrivalTime" th:field="*{arrivalTime}" type="time" placeholder="hh:mm" class="form-control" >
+            </div>
+
+            <!--<div class="form-group" th:object="${airlines}">-->
+            <div class="form-group">
+                <!--<label class="control-label col-sm-2" for="airline">Airline</label>-->
+                <label for="airline">Airline</label>
+                <!--<select class="form-control" id="airline" th:name="${flight.airline}" >-->
+                <select class="form-control" th:field="${flight.airline.id}" >
+                    <option value="-1" selected>Please select Airline</option>
+                    <option th:each="airline : ${airlines}"
+                            th:value="${airline.id}"
+                            th:text="${airline.airlineName}"
+                            th:selected="${flight.airline.id == airline.id}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="airplane">Airplane</label>
+                <select class="form-control" th:field="${flight.airplane.id}" >
+                    <option value="-1" selected>Please select Airplane</option>
+                    <option th:each="airplane : ${airplanes}"
+                            th:value="${airplane.id}"
+                            th:text="${airplane.serialNumber} + ' - ' + ${airplane.model}"
+                            th:selected="${flight.airplane.id == airplane.id}" >
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group" >
+                <label for="origin">Departure</label>
+                <!--<select class="form-control" th:field="${flight.origin.id}" >-->
+                <select class="form-control" th:field="${flight.origin.id}">
+                    <option value="-1" selected>Please select origin</option>
+                    <option th:each="airport : ${airports}"
+                            th:value="${airport.id}"
+                            th:text="${airport.airportCode} + ' - ' + ${airport.airportName} + ' - ' + ${airport.city} + ' - ' + ${airport.country}"
+                            th:selected="${flight.origin.id == airport.id}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group" >
+                <label for="destination">Destination</label>
+                <select class="form-control" th:field="${flight.destination.id}" >
+                    <!--<select class="form-control"  >-->
+                    <option value="-1" selected>Please select destination</option>
+                    <option th:each="airport : ${airports}"
+                            th:value="${airport.id}"
+                            th:text="${airport.airportCode} + ' - ' + ${airport.airportName} + ' - ' + ${airport.city} + ' - ' + ${airport.country}"
+                            th:selected="${flight.destination.id == airport.id}">
+                    </option>
+                </select>
+            </div>
+
+            <div style="float:right;">
+                <a href="/admin" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                <button id="btnCreate" type="submit" name="create" class="btn btn-outline-success">Add</button>
+            </div>
+        </fieldset>
+    </form>
+</th:block>
+
+<th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

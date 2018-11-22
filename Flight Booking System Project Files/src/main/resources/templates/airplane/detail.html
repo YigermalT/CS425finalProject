@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorator="shared/homelayout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage-index.css}" />
+    <title>Airline detail</title>
+</th:block>
+<body>
+    <th:block layout:fragment="content">
+        <form id="frmAirplane" method="post" th:action="@{/airplane/{id}(id=${airplane.id})}" th:object="${airplane}">
+            <fieldset>
+                <legend>Airplane Information</legend>
+                <div class="form-group">
+                    <label >ID</label>
+                    <input type="text" disabled="true" th:field="*{id}" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label >Serial Number</label>
+                    <span th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{serialNumber}"
+									class="alert alert-danger"></span>
+                    <input id="serialNumber"  th:field="*{serialNumber}" type="text" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label>Model</label>
+                    <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
+                          class="alert alert-danger"></span>
+                    <input id="model" th:field="*{model}" type="text" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label>Capacity</label>
+                    <span th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"
+                          class="alert alert-danger"></span>
+                    <input id="capacity" th:field="*{capacity}" type="number" class="form-control" >
+                </div>
+
+                <div style="float:right;">
+                    <a href="/airplane" class="btn btn-outline-warning">Cancel</a>
+                    <button id="btnDelete" type="submit" name="delete" class="btn btn-outline-danger">Delete</button>
+                    <button id="btnSubmit" type="submit" name="update" class="btn btn-outline-success">Update</button>
+                </div>
+
+            </fieldset>
+        </form>
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+    
+</body>
+</html>

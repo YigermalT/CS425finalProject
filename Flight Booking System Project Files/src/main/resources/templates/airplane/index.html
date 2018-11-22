@@ -1,0 +1,41 @@
+<!DOCTYPE html >
+<html layout:decorator="shared/homelayout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-index.css}"/>
+</th:block>
+
+<body>
+<th:block layout:fragment="content">
+    <h2>List of Airplanes</h2>
+    <a href="/airplane/new">Add a New Airplane Info</a>
+
+    <table class="table table-striped">
+        <thead style="background-color: darkblue; color:white";>
+        <th>ID</th>
+        <th>Serial Number</th>
+        <th>Model</th>
+        <th>Capacity</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+
+        <tr th:each="airplane : ${airplanes}">
+            <td th:text="${airplane.id}"></td>
+            <td th:text="${airplane.serialNumber}"></td>
+            <td th:text="${airplane.model}"></td>
+            <td th:text="${airplane.capacity}"></td>
+
+            <td>
+                <a th:href="@{'/airplane/' + ${airplane.id}}">Edit</a>&nbsp;
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+
+<th:block layout:fragment="footer">
+</th:block>
+</body>
+</html>
